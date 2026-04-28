@@ -23,7 +23,7 @@ import 'package:emerald_api/blockchain.dart';
 import 'package:emerald_api/common.dart';
 
 Future<void> main() async {
-  final api = EmeraldApi();
+  final api = EmeraldApi(token: 'emrld_...');
   try {
     final fee = await api.blockchain().estimateFee(
       EstimateFeeRequest()
@@ -38,7 +38,13 @@ Future<void> main() async {
 }
 ----
 
-NOTE: Authentication is not yet implemented. The production endpoint will return UNAUTHENTICATED until auth support is added.
+== Authentication
+
+Pass a secret API token via the `token:` parameter on any constructor. On the first call, the client exchanges it for a short-lived JWT via `Auth.Authenticate`; the JWT is then attached to subsequent calls as the `authorization: Bearer ...` header and refreshed automatically before it expires.
+
+Without a token, only unauthenticated methods (such as `Monitoring.Ping`) succeed.
+
+To force authentication eagerly (before the first user-facing call), call `await api.authenticate()`.
 
 == Available services
 
@@ -73,9 +79,21 @@ git commit api-definitions
 
 === Run tests
 
+Unit tests (no network):
+
 ----
 dart pub get
-dart test
+dart test --exclude-tags=integration
+----
+
+Integration tests:
+
+----
+# Unauthenticated endpoints (Monitoring.Ping):
+dart test --tags=integration
+
+# Authenticated endpoints (Auth.WhoAmI, ...):
+EMERALD_API_TOKEN=emrld_... dart test --tags=integration
 ----
 
 == License

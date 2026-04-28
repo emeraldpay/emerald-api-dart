@@ -1,14 +1,15 @@
 // Estimates a transaction fee on Ethereum mainnet against the production API.
-// Note: the production endpoint requires authentication, which is not yet
-// implemented in this client. This example will fail with UNAUTHENTICATED
-// until auth support is added — it is included to show the call shape.
+// Set EMERALD_API_TOKEN in the environment to authenticate; without a token
+// the call fails with UNAUTHENTICATED.
+
+import 'dart:io';
 
 import 'package:emerald_api/blockchain.dart';
 import 'package:emerald_api/common.dart';
 import 'package:emerald_api/emerald_api.dart';
 
 Future<void> main() async {
-  final api = EmeraldApi();
+  final api = EmeraldApi(token: Platform.environment['EMERALD_API_TOKEN']);
   try {
     final response = await api.blockchain().estimateFee(
       EstimateFeeRequest()
