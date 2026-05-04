@@ -39,6 +39,13 @@ class MarketClient extends $grpc.Client {
     return $createUnaryCall(_$getRates, request, options: options);
   }
 
+  $grpc.ResponseFuture<$0.GetRateSeriesResponse> getRateSeries(
+    $0.GetRateSeriesRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getRateSeries, request, options: options);
+  }
+
   // method descriptors
 
   static final _$getRates =
@@ -46,6 +53,11 @@ class MarketClient extends $grpc.Client {
           '/emerald.Market/GetRates',
           ($0.GetRatesRequest value) => value.writeToBuffer(),
           $0.GetRatesResponse.fromBuffer);
+  static final _$getRateSeries =
+      $grpc.ClientMethod<$0.GetRateSeriesRequest, $0.GetRateSeriesResponse>(
+          '/emerald.Market/GetRateSeries',
+          ($0.GetRateSeriesRequest value) => value.writeToBuffer(),
+          $0.GetRateSeriesResponse.fromBuffer);
 }
 
 @$pb.GrpcServiceName('emerald.Market')
@@ -60,6 +72,15 @@ abstract class MarketServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetRatesRequest.fromBuffer(value),
         ($0.GetRatesResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.GetRateSeriesRequest, $0.GetRateSeriesResponse>(
+            'GetRateSeries',
+            getRateSeries_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.GetRateSeriesRequest.fromBuffer(value),
+            ($0.GetRateSeriesResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.GetRatesResponse> getRates_Pre($grpc.ServiceCall $call,
@@ -69,4 +90,13 @@ abstract class MarketServiceBase extends $grpc.Service {
 
   $async.Future<$0.GetRatesResponse> getRates(
       $grpc.ServiceCall call, $0.GetRatesRequest request);
+
+  $async.Future<$0.GetRateSeriesResponse> getRateSeries_Pre(
+      $grpc.ServiceCall $call,
+      $async.Future<$0.GetRateSeriesRequest> $request) async {
+    return getRateSeries($call, await $request);
+  }
+
+  $async.Future<$0.GetRateSeriesResponse> getRateSeries(
+      $grpc.ServiceCall call, $0.GetRateSeriesRequest request);
 }

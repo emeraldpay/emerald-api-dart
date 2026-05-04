@@ -15,21 +15,6 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use addressControlDescriptor instead')
-const AddressControl$json = {
-  '1': 'AddressControl',
-  '2': [
-    {'1': 'CTRL_UNKNOWN', '2': 0},
-    {'1': 'CTRL_PERSON', '2': 1},
-    {'1': 'CTRL_CONTRACT', '2': 2},
-  ],
-};
-
-/// Descriptor for `AddressControl`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List addressControlDescriptor = $convert.base64Decode(
-    'Cg5BZGRyZXNzQ29udHJvbBIQCgxDVFJMX1VOS05PV04QABIPCgtDVFJMX1BFUlNPThABEhEKDU'
-    'NUUkxfQ09OVFJBQ1QQAg==');
-
 @$core.Deprecated('Use addressCapabilityDescriptor instead')
 const AddressCapability$json = {
   '1': 'AddressCapability',
@@ -98,14 +83,7 @@ const DescribeResponse$json = {
       '10': 'address'
     },
     {'1': 'active', '3': 2, '4': 1, '5': 8, '10': 'active'},
-    {
-      '1': 'control',
-      '3': 3,
-      '4': 1,
-      '5': 14,
-      '6': '.emerald.address.AddressControl',
-      '10': 'control'
-    },
+    {'1': 'is_contract', '3': 6, '4': 1, '5': 8, '10': 'isContract'},
     {
       '1': 'capabilities',
       '3': 4,
@@ -128,10 +106,10 @@ const DescribeResponse$json = {
 /// Descriptor for `DescribeResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List describeResponseDescriptor = $convert.base64Decode(
     'ChBEZXNjcmliZVJlc3BvbnNlEjAKB2FkZHJlc3MYASABKAsyFi5lbWVyYWxkLlNpbmdsZUFkZH'
-    'Jlc3NSB2FkZHJlc3MSFgoGYWN0aXZlGAIgASgIUgZhY3RpdmUSOQoHY29udHJvbBgDIAEoDjIf'
-    'LmVtZXJhbGQuYWRkcmVzcy5BZGRyZXNzQ29udHJvbFIHY29udHJvbBJGCgxjYXBhYmlsaXRpZX'
-    'MYBCADKA4yIi5lbWVyYWxkLmFkZHJlc3MuQWRkcmVzc0NhcGFiaWxpdHlSDGNhcGFiaWxpdGll'
-    'cxIyCgVuYW1lcxgFIAMoCzIcLmVtZXJhbGQuYWRkcmVzcy5BZGRyZXNzTmFtZVIFbmFtZXM=');
+    'Jlc3NSB2FkZHJlc3MSFgoGYWN0aXZlGAIgASgIUgZhY3RpdmUSHwoLaXNfY29udHJhY3QYBiAB'
+    'KAhSCmlzQ29udHJhY3QSRgoMY2FwYWJpbGl0aWVzGAQgAygOMiIuZW1lcmFsZC5hZGRyZXNzLk'
+    'FkZHJlc3NDYXBhYmlsaXR5UgxjYXBhYmlsaXRpZXMSMgoFbmFtZXMYBSADKAsyHC5lbWVyYWxk'
+    'LmFkZHJlc3MuQWRkcmVzc05hbWVSBW5hbWVz');
 
 @$core.Deprecated('Use addressNameDescriptor instead')
 const AddressName$json = {

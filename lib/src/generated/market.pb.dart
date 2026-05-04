@@ -16,8 +16,11 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'common.pb.dart' as $1;
+import 'market.pbenum.dart';
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
+
+export 'market.pbenum.dart';
 
 enum GetRatesRequest_AtRefType { timestamp, block, notSet }
 
@@ -438,6 +441,238 @@ class Rate extends $pb.GeneratedMessage {
   $core.bool hasTimestamp() => $_has(5);
   @$pb.TagNumber(6)
   void clearTimestamp() => $_clearField(6);
+}
+
+class GetRateSeriesRequest extends $pb.GeneratedMessage {
+  factory GetRateSeriesRequest({
+    Pair? pair,
+    Granularity? granularity,
+    $fixnum.Int64? fromTimestamp,
+    $fixnum.Int64? toTimestamp,
+  }) {
+    final result = create();
+    if (pair != null) result.pair = pair;
+    if (granularity != null) result.granularity = granularity;
+    if (fromTimestamp != null) result.fromTimestamp = fromTimestamp;
+    if (toTimestamp != null) result.toTimestamp = toTimestamp;
+    return result;
+  }
+
+  GetRateSeriesRequest._();
+
+  factory GetRateSeriesRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory GetRateSeriesRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GetRateSeriesRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'emerald'),
+      createEmptyInstance: create)
+    ..aOM<Pair>(1, _omitFieldNames ? '' : 'pair', subBuilder: Pair.create)
+    ..aE<Granularity>(2, _omitFieldNames ? '' : 'granularity',
+        enumValues: Granularity.values)
+    ..a<$fixnum.Int64>(
+        3, _omitFieldNames ? '' : 'fromTimestamp', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(
+        4, _omitFieldNames ? '' : 'toTimestamp', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GetRateSeriesRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GetRateSeriesRequest copyWith(void Function(GetRateSeriesRequest) updates) =>
+      super.copyWith((message) => updates(message as GetRateSeriesRequest))
+          as GetRateSeriesRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetRateSeriesRequest create() => GetRateSeriesRequest._();
+  @$core.override
+  GetRateSeriesRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static GetRateSeriesRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetRateSeriesRequest>(create);
+  static GetRateSeriesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Pair get pair => $_getN(0);
+  @$pb.TagNumber(1)
+  set pair(Pair value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasPair() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPair() => $_clearField(1);
+  @$pb.TagNumber(1)
+  Pair ensurePair() => $_ensure(0);
+
+  /// rate granularity, e.g. 1 minute, 1 hour, etc. (required)
+  @$pb.TagNumber(2)
+  Granularity get granularity => $_getN(1);
+  @$pb.TagNumber(2)
+  set granularity(Granularity value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasGranularity() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearGranularity() => $_clearField(2);
+
+  /// timestamp in milliseconds since epoch (UTC) inclusive (required)
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get fromTimestamp => $_getI64(2);
+  @$pb.TagNumber(3)
+  set fromTimestamp($fixnum.Int64 value) => $_setInt64(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasFromTimestamp() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFromTimestamp() => $_clearField(3);
+
+  /// timestamp in milliseconds since epoch (UTC) inclusive (0 means current time)
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get toTimestamp => $_getI64(3);
+  @$pb.TagNumber(4)
+  set toTimestamp($fixnum.Int64 value) => $_setInt64(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasToTimestamp() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearToTimestamp() => $_clearField(4);
+}
+
+class GetRateSeriesResponse extends $pb.GeneratedMessage {
+  factory GetRateSeriesResponse({
+    Pair? pair,
+    $core.Iterable<RateAt>? rates,
+  }) {
+    final result = create();
+    if (pair != null) result.pair = pair;
+    if (rates != null) result.rates.addAll(rates);
+    return result;
+  }
+
+  GetRateSeriesResponse._();
+
+  factory GetRateSeriesResponse.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory GetRateSeriesResponse.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GetRateSeriesResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'emerald'),
+      createEmptyInstance: create)
+    ..aOM<Pair>(1, _omitFieldNames ? '' : 'pair', subBuilder: Pair.create)
+    ..pPM<RateAt>(2, _omitFieldNames ? '' : 'rates', subBuilder: RateAt.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GetRateSeriesResponse clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GetRateSeriesResponse copyWith(
+          void Function(GetRateSeriesResponse) updates) =>
+      super.copyWith((message) => updates(message as GetRateSeriesResponse))
+          as GetRateSeriesResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetRateSeriesResponse create() => GetRateSeriesResponse._();
+  @$core.override
+  GetRateSeriesResponse createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static GetRateSeriesResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetRateSeriesResponse>(create);
+  static GetRateSeriesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Pair get pair => $_getN(0);
+  @$pb.TagNumber(1)
+  set pair(Pair value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasPair() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPair() => $_clearField(1);
+  @$pb.TagNumber(1)
+  Pair ensurePair() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<RateAt> get rates => $_getList(1);
+}
+
+class RateAt extends $pb.GeneratedMessage {
+  factory RateAt({
+    $core.String? rate,
+    $fixnum.Int64? timestamp,
+  }) {
+    final result = create();
+    if (rate != null) result.rate = rate;
+    if (timestamp != null) result.timestamp = timestamp;
+    return result;
+  }
+
+  RateAt._();
+
+  factory RateAt.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory RateAt.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'RateAt',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'emerald'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'rate')
+    ..a<$fixnum.Int64>(
+        2, _omitFieldNames ? '' : 'timestamp', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  RateAt clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  RateAt copyWith(void Function(RateAt) updates) =>
+      super.copyWith((message) => updates(message as RateAt)) as RateAt;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static RateAt create() => RateAt._();
+  @$core.override
+  RateAt createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static RateAt getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RateAt>(create);
+  static RateAt? _defaultInstance;
+
+  /// rate as a string to preserve precision, e.g. "0.000000000000000001"
+  @$pb.TagNumber(1)
+  $core.String get rate => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set rate($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasRate() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRate() => $_clearField(1);
+
+  /// rate timestamp in milliseconds since epoch (UTC)
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get timestamp => $_getI64(1);
+  @$pb.TagNumber(2)
+  set timestamp($fixnum.Int64 value) => $_setInt64(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTimestamp() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTimestamp() => $_clearField(2);
 }
 
 const $core.bool _omitFieldNames =

@@ -98,16 +98,16 @@ class DescribeResponse extends $pb.GeneratedMessage {
   factory DescribeResponse({
     $0.SingleAddress? address,
     $core.bool? active,
-    AddressControl? control,
     $core.Iterable<AddressCapability>? capabilities,
     $core.Iterable<AddressName>? names,
+    $core.bool? isContract,
   }) {
     final result = create();
     if (address != null) result.address = address;
     if (active != null) result.active = active;
-    if (control != null) result.control = control;
     if (capabilities != null) result.capabilities.addAll(capabilities);
     if (names != null) result.names.addAll(names);
+    if (isContract != null) result.isContract = isContract;
     return result;
   }
 
@@ -128,8 +128,6 @@ class DescribeResponse extends $pb.GeneratedMessage {
     ..aOM<$0.SingleAddress>(1, _omitFieldNames ? '' : 'address',
         subBuilder: $0.SingleAddress.create)
     ..aOB(2, _omitFieldNames ? '' : 'active')
-    ..aE<AddressControl>(3, _omitFieldNames ? '' : 'control',
-        enumValues: AddressControl.values)
     ..pc<AddressCapability>(
         4, _omitFieldNames ? '' : 'capabilities', $pb.PbFieldType.KE,
         valueOf: AddressCapability.valueOf,
@@ -137,6 +135,7 @@ class DescribeResponse extends $pb.GeneratedMessage {
         defaultEnumValue: AddressCapability.CAP_INVALID)
     ..pPM<AddressName>(5, _omitFieldNames ? '' : 'names',
         subBuilder: AddressName.create)
+    ..aOB(6, _omitFieldNames ? '' : 'isContract')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -170,7 +169,7 @@ class DescribeResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $0.SingleAddress ensureAddress() => $_ensure(0);
 
-  /// TBD
+  /// True if anything was sent from the address
   @$pb.TagNumber(2)
   $core.bool get active => $_getBF(1);
   @$pb.TagNumber(2)
@@ -180,23 +179,23 @@ class DescribeResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearActive() => $_clearField(2);
 
-  /// How the address is controlled
-  @$pb.TagNumber(3)
-  AddressControl get control => $_getN(2);
-  @$pb.TagNumber(3)
-  set control(AddressControl value) => $_setField(3, value);
-  @$pb.TagNumber(3)
-  $core.bool hasControl() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearControl() => $_clearField(3);
-
   /// For a contract, which capabilities it has
   @$pb.TagNumber(4)
-  $pb.PbList<AddressCapability> get capabilities => $_getList(3);
+  $pb.PbList<AddressCapability> get capabilities => $_getList(2);
 
   /// Names associated with the address, e.g. a ENS name
   @$pb.TagNumber(5)
-  $pb.PbList<AddressName> get names => $_getList(4);
+  $pb.PbList<AddressName> get names => $_getList(3);
+
+  /// True if address is a contract
+  @$pb.TagNumber(6)
+  $core.bool get isContract => $_getBF(4);
+  @$pb.TagNumber(6)
+  set isContract($core.bool value) => $_setBool(4, value);
+  @$pb.TagNumber(6)
+  $core.bool hasIsContract() => $_has(4);
+  @$pb.TagNumber(6)
+  void clearIsContract() => $_clearField(6);
 }
 
 class AddressName extends $pb.GeneratedMessage {

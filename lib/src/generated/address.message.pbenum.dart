@@ -14,33 +14,6 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class AddressControl extends $pb.ProtobufEnum {
-  /// When there is no information about the address control, ex. address never used
-  static const AddressControl CTRL_UNKNOWN =
-      AddressControl._(0, _omitEnumNames ? '' : 'CTRL_UNKNOWN');
-
-  /// Controller by a Private Key
-  static const AddressControl CTRL_PERSON =
-      AddressControl._(1, _omitEnumNames ? '' : 'CTRL_PERSON');
-
-  /// Controller by a Contract
-  static const AddressControl CTRL_CONTRACT =
-      AddressControl._(2, _omitEnumNames ? '' : 'CTRL_CONTRACT');
-
-  static const $core.List<AddressControl> values = <AddressControl>[
-    CTRL_UNKNOWN,
-    CTRL_PERSON,
-    CTRL_CONTRACT,
-  ];
-
-  static final $core.List<AddressControl?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 2);
-  static AddressControl? valueOf($core.int value) =>
-      value < 0 || value >= _byValue.length ? null : _byValue[value];
-
-  const AddressControl._(super.value, super.name);
-}
-
 class AddressCapability extends $pb.ProtobufEnum {
   static const AddressCapability CAP_INVALID =
       AddressCapability._(0, _omitEnumNames ? '' : 'CAP_INVALID');
