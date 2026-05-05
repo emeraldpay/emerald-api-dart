@@ -1,0 +1,118 @@
+# Emerald API for Dart / Flutter
+
+Dart client for the [Emerald](https://emerald.cash) gRPC API. Targets Dart 3
+and Flutter on mobile (iOS / Android).
+
+> **Note:** This is a preliminary version. Service and message definitions may
+> change without backward compatibility until version 1.0.
+
+## Usage
+
+Add the dependency:
+
+```yaml
+dependencies:
+  emerald_api: ^0.1.0
+```
+
+Import the main library plus the per-service barrels you need:
+
+```dart
+import 'package:emerald_api/emerald_api.dart';
+import 'package:emerald_api/blockchain.dart';
+import 'package:emerald_api/common.dart';
+
+Future<void> main() async {
+  final api = EmeraldApi(token: 'emrld_...');
+  try {
+    final fee = await api.blockchain().estimateFee(
+      EstimateFeeRequest()
+        ..chain = ChainRef.CHAIN_ETHEREUM
+        ..mode = FeeEstimationMode.AVG_LAST
+        ..blocks = 10,
+    );
+    print(fee);
+  } finally {
+    await api.shutdown();
+  }
+}
+```
+
+## Authentication
+
+Pass a secret API token via the `token:` parameter on any constructor. On the
+first call, the client exchanges it for a short-lived JWT via
+`Auth.Authenticate`; the JWT is then attached to subsequent calls as the
+`authorization: Bearer ...` header and refreshed automatically before it
+expires.
+
+Without a token, only unauthenticated methods (such as `Monitoring.Ping`)
+succeed.
+
+To force authentication eagerly (before the first user-facing call), call
+`await api.authenticate()`.
+
+## Available services
+
+`address`, `auth`, `blockchain`, `insights`, `market`, `monitoring`, `sierra`
+(project / org / stat), `token`, `transaction`.
+
+Each is exposed as a method on `EmeraldApi`, returning the corresponding
+generated gRPC client.
+
+## Development
+
+### Layout
+
+- `api-definitions/` — protobuf definitions, included as a Git submodule.
+- `lib/src/generated/` — generated `*.pb.dart` and `*.pbgrpc.dart` files.
+  **Committed** to the repository so consumers don't need `protoc`.
+- `lib/<service>.dart` — per-service barrel libraries that re-export the
+  generated types.
+- `lib/src/emerald_api.dart` — the `EmeraldApi` channel wrapper.
+
+### Regenerate Dart stubs
+
+Requires `protoc` 3.x on `PATH`. The script activates the `protoc_plugin`
+package globally on first run.
+
+```sh
+./tool/generate.sh
+```
+
+### Update protobuf definitions
+
+```sh
+git submodule update --remote api-definitions
+git commit api-definitions
+./tool/generate.sh
+```
+
+### Run tests
+
+Unit tests (no network):
+
+```sh
+dart pub get
+dart test --exclude-tags=integration
+```
+
+Integration tests:
+
+```sh
+# Unauthenticated endpoints (Monitoring.Ping):
+dart test --tags=integration
+
+# Authenticated endpoints (Auth.WhoAmI, ...):
+EMERALD_API_TOKEN=emrld_... dart test --tags=integration
+```
+
+## License
+
+Copyright 2026 EmeraldPay Ltd
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy
+of the License at
+
+<http://www.apache.org/licenses/LICENSE-2.0>

@@ -1,6 +1,6 @@
 name: emerald_api
 description: Emerald API client for Dart and Flutter — gRPC stubs and a thin channel wrapper.
-version: 0.1.0-dev
+version: 0.1.0
 repository: https://github.com/emeraldpay/emerald-api-dart
 
 environment:
