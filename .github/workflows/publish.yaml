@@ -1,0 +1,43 @@
+name: Publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    name: Publish to pub.dev
+    runs-on: ubuntu-latest
+    # OIDC: pub.dev's automated-publishing trust uses this token to verify
+    # the workflow is allowed to publish. The package's pub.dev admin page
+    # must have GitHub Actions publishing enabled for this repository,
+    # with a tag pattern matching the release tags (default: `v{{version}}`).
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref }}
+          submodules: true
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Analyze
+        run: dart analyze --fatal-infos
+
+      - name: Run unit tests
+        run: dart test --exclude-tags=integration
+
+      - name: Verify package
+        run: dart pub publish --dry-run
+
+      - name: Publish to pub.dev
+        run: dart pub publish --force
